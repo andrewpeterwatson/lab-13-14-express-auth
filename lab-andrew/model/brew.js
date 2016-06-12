@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const debug = require('debug')('authwork:brew');
 
 const brewSchema = mongoose.Schema({
-  name: {tpye: String, required: true, unique: true}
+  name: {type: String, required: true, unique: true}
   , brewRatio: {type: Array, required: true}
   , userId: {type: mongoose.Schema.ObjectId, required: true}
 });

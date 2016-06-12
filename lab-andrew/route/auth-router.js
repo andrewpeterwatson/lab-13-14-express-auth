@@ -11,12 +11,13 @@ const authController = require('../controller/auth-controller');
 const authRouter = module.exports = new Router();
 
 authRouter.post('/signup', jsonParser, function(req, res, next){
+  console.log('req.body', req.body);
   authController.signup(req.body)
   .then( token => res.send(token))
   .catch(next);
 });
 
-authRouter.get('/signin', parseBasicAuth ,function(req, res, next){
+authRouter.get('/signin', parseBasicAuth, function(req, res, next){
   console.log('req.auth', req.auth);
   authController.signin(req.auth)
   .then( token => res.send(token))

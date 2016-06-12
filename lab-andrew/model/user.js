@@ -8,16 +8,17 @@ const httpErrors = require('http-errors');
 const debug = require('debug')('authwork:user');
 
 const userSchema = mongoose.Schema({
-  username: {type: String, required: true, unique: true},
-  password: {type: String, required: true},
-  findHash: {type: String, unique: true}
+  username: {type: String, required: true, unique: true}
+  ,password: {type: String, required: true}
+  ,findHash: {type: String, unique: true}
 });
 
 userSchema.methods.generateHash = function(password) {
   debug('generateHash');
   return new Promise((resolve, reject) => {
     bcrypt.hash(password, 8, (err, hash) => {
-      this.passowrd = hash;
+      if(err) return reject(err);
+      this.password = hash;
       resolve(this);
     });
   });
@@ -41,7 +42,8 @@ userSchema.methods.generateFindHash = function() {
     var tries = 0;
     _generateFindHash.call(this);
     function _generateFindHash() {
-      this.fundHash = crypto.randomBytes(32).toString('hex');
+      this.findHash = crypto.randomBytes(32).toString('hex');
+      console.log('this.findhash', this.findHash);
       this.save()
       .then(() => resolve(this.findHash))
       .catch((err) => {
@@ -62,4 +64,4 @@ userSchema.methods.generateToken = function() {
   });
 };
 
-module.exports = mongoose.model('ueser', userSchema);
+module.exports = mongoose.model('user', userSchema);

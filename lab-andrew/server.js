@@ -13,7 +13,7 @@ const brewRouter = require('./route/brew-router');
 
 const app = express();
 const port = process.env.PORT || 3000;
-const mongoURI = process.env.MONGODB_URI || 'mongodb://lovalhost/authdev';
+const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost/authdev';
 
 mongoose.connect(mongoURI);
 
@@ -34,8 +34,8 @@ app.all('*', function(req, res, next) {
 
 app.use(handleError);
 
-const server = app.lidstern(port, function() {
-  debug('server running on PORT: ', port);
+const server = app.listen(port, function() {
+  console.log('server running on PORT: ', port);
 });
 
 server.isRunning = true;

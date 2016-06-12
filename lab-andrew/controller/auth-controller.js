@@ -8,6 +8,7 @@ exports.signup = function(reqBody) {
   debug('signup');
   return new Promise((resolve, reject) => {
     var password = reqBody.password;
+    // debugger;
     delete reqBody.password;
     var user = new User(reqBody);
     user.generateHash(password)
@@ -21,7 +22,7 @@ exports.signup = function(reqBody) {
 exports.signin = function(auth) {
   debug('signin');
   return new Promise((resolve, reject) => {
-    User.findOne({username: auth.usern
+    User.findOne({username: auth.usernname
     })
     .then(user => user.compareHash(auth.password))
     .then(user => user.generateToken())

@@ -1,20 +1,20 @@
 'use strict';
 
 
-const debug = require('debug')('authdemo:snack-router');
+const debug = require('debug')('authdemo:brew-router');
 const Router = require('express').Router;
 const jsonParser = require('body-parser').json();
 
 
 const parseBearerAuth = require('../lib/parse-bearer-auth');
-const snackController = require('../controller/snack-controller');
+const brewController = require('../controller/brew-controller');
 
-const snackRouter = module.exports = new Router();
+const brewRouter = module.exports = new Router();
 
-snackRouter.post('/snack', parseBearerAuth, jsonParser, function(req, res, next){
-  debug('POST /api/snack');
+brewRouter.post('/brew', parseBearerAuth, jsonParser, function(req, res, next){
+  debug('POST /api/brew');
   req.body.userId = req.userId;
-  snackController.createSnack(req.body)
-  .then( snack => res.json(snack))
+  brewController.createBrew(req.body)
+  .then( brew => res.json(brew))
   .catch(next);
 });

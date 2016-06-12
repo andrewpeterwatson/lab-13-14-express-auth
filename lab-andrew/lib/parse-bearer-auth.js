@@ -1,16 +1,16 @@
 'use strict';
 
-// npm modules
-const debug = require('debug')('authdemo:parse-bearer-auth');
+
+const debug = require('debug')('authwork:parse-bearer-auth');
 const httpErrors = require('http-errors');
 const jwt = require('jsonwebtoken');
 
-// app modules
+
 const User = require('../model/user');
 
 module.exports = function(req, res, next){
   debug('parseBearerAuth');
-  if (! req.headers.authorization)
+  if (!req.headers.authorization)
     return next(httpErrors(401, 'requires authorization header'));
   const token = req.headers.authorization.split(' ')[1];
   console.log('token', token);
