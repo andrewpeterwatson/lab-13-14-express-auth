@@ -5,6 +5,7 @@ const debug = require('debug')('authwork:brew');
 
 const brewSchema = mongoose.Schema({
   name: {type: String, required: true, unique: true}
+  , brewMethod: {type: 'String'}
   , brewRatio: {type: Array, required: true}
   , userId: {type: mongoose.Schema.ObjectId, required: true}
 });

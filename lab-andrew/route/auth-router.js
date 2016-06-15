@@ -10,7 +10,7 @@ const authController = require('../controller/auth-controller');
 
 const authRouter = module.exports = new Router();
 
-authRouter.post('/signup', jsonParser, function(req, res, next){
+authRouter.post('/signup', jsonParser, (req, res, next) => {
   console.log('req.body', req.body);
   authController.signup(req.body)
   .then( token => res.send(token))
