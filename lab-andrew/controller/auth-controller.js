@@ -7,6 +7,9 @@ const User = require('../model/user');
 exports.signup = function(reqBody) {
   debug('signup');
   return new Promise((resolve, reject) => {
+    if(!reqBody.username || !reqBody.password) {
+      return reject(httpErrors(400, 'no username or password provided'));
+    }
     var password = reqBody.password;
     delete reqBody.password;
     var user = new User(reqBody);
@@ -20,9 +23,10 @@ exports.signup = function(reqBody) {
 
 exports.signin = function(auth) {
   debug('signin');
+  console.log('this is signin:', auth.password);
   return new Promise((resolve, reject) => {
-    User.findOne({username: auth.usernname
-    }).then(user => {
+    User.findOne({username: auth.username})
+    .then(user => {
       if(!user) return reject(httpErrors(401, 'not a valid user'));
       return user;
     })

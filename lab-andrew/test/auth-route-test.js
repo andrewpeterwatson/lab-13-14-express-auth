@@ -36,13 +36,14 @@ describe('testing auth-router module', () => {
         server.isRunning = false;
         done();
       });
-      done();
+      return;
     }
+    done();
   });
 
   describe('bad enpoint', () => {
     it('should return 404 not found', (done) => {
-      request.post(`${baseUrl}/trollToe`)
+      request.post(`${baseUrl}/trollTest`)
       .catch((err) => {
         expect(err.response.status).to.equal(404);
         done();
@@ -71,13 +72,11 @@ describe('testing auth-router module', () => {
 
     it('should return a 400 bad request', (done) => {
       request.post(`${baseUrl}/signup`)
-      .send({
-        username: '!arms'
-      })
       .catch(err => {
         expect(err.response.status).to.equal(400);
         done();
-      });
+      })
+      .catch(done);
     });
   });
 
@@ -85,7 +84,7 @@ describe('testing auth-router module', () => {
     before((done) => {
       authController.signup({
         username: '!arms',
-        password: 'trolls'
+        password: 'trollToe'
       })
       .then(() => done())
       .catch(done);
@@ -99,7 +98,7 @@ describe('testing auth-router module', () => {
 
     it('should return a token', (done) => {
       request.get(`${baseUrl}/signin`)
-      .auth('!arms', 'trolls')
+      .auth('!arms','trollToe')
       .then(res => {
         expect(res.status).to.equal(200);
         done();
@@ -109,7 +108,7 @@ describe('testing auth-router module', () => {
 
     it('should return a 401 user not found', (done) => {
       request.get(`${baseUrl}/signin`)
-      .auth('cury', 'cury')
+      .auth('!arms2', 'trolltoe')
       .catch(err => {
         expect(err.response.status).to.equal(401);
         done();

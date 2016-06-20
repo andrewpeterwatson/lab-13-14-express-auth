@@ -29,8 +29,7 @@ userSchema.methods.compareHash = function(password){
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, this.password, (err, result) => {
       if(err) return reject(err);
-      if(!result) return;
-      reject(httpErrors(401, 'wrong password'));
+      if(!result) return reject(httpErrors(401, 'wrong password'));
       resolve(this);
     });
   });

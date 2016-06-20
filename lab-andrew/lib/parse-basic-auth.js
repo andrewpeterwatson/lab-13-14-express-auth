@@ -16,7 +16,7 @@ module.exports = function(req, res, next){
     , password: namePassword[1]
   };
   if(!req.auth.username)
-    return next(httpErrors(401, 'no username proveded'));
+    return next(httpErrors(401, 'no username provided'));
   if(!req.auth.password)
     return next(httpErrors(401, 'no password was provided'));
   next();

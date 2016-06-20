@@ -20,13 +20,6 @@ brewRouter.post('/brew', parseBearerAuth, jsonParser, function(req, res, next){
   .catch(next);
 });
 
-brewRouter.get('/brew/all', parseBearerAuth, (req, res, next) => {
-  brewController.fetchAllBrews()
-  .then((brews) => {
-    res.json(brews);
-  })
-  .catch(next);
-});
 
 brewRouter.get('/brew', (req, res, next) => {
   next(httpErrors(400, ' no Id'));
@@ -36,6 +29,13 @@ brewRouter.get('/brew/:id', parseBearerAuth, (req, res, next) => {
   brewController.fetchItem(req.params.id)
   .then(brew => {
     if(!brew) return next(httpErrors(404, 'not found'));
+    res.json(brew);
+  })
+  .catch(next);
+});
+brewRouter.get('/brew/all', parseBearerAuth, (req, res, next) => {
+  brewController.fetchAllBrews()
+  .then((brew) => {
     res.json(brew);
   })
   .catch(next);

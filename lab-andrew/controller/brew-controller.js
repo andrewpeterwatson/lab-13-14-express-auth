@@ -15,7 +15,7 @@ exports.createBrew = function(brewData) {
 
 exports.fetchItem = function(brewId) {
   return new Promise((resolve, reject) => {
-    Brew.findOne({_id: brewId})
+    Brew.findOne({_id:brewId})
     .then(brew => {
       resolve(brew);
     })
